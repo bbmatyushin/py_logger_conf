@@ -5,6 +5,10 @@ proj_dir = Path(__file__).parent.parent
 
 
 def setup_logging():
+    log_dir = Path(proj_dir, 'logs')
+    if not log_dir.exists():
+        log_dir.mkdir(parents=True, exist_ok=True)
+    
     log_conf = {
         'version': 1,
         'formatters': {
@@ -24,7 +28,7 @@ def setup_logging():
                 'when': 'D',  # единицца ротации
                 'interval': 1,  # через сколько единиц будет проходить ротации
                 'backupCount': 30,  # сколько файлов хранить
-                'filename': f"{Path(proj_dir, 'logs', 'pat_send_data.log')}",
+                'filename': f"{Path(log_dir, 'pat_send_data.log')}",
                 'formatter': 'standard',
                 'level': 'INFO',
                 'encoding': 'utf-8',
@@ -61,3 +65,4 @@ setup_logging()
 
 def get_logger(name: str):
     return logging.getLogger(name)
+
